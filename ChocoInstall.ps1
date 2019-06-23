@@ -12,6 +12,9 @@ Designed to be run by Intune or SCCM Agent.
 Installing greenshot via intune Win32App
     Install command: powershell -ex bypass -file ChocoInstall.ps1 -package greenshot
 .EXAMPLE
+Upgrading greenshot via intune Win32App
+    Install command: powershell -ex bypass -file ChocoInstall.ps1 -package greenshot -upgrade
+.EXAMPLE
 Uninstalling greenshot via intune Win32App
     Install command: powershell -ex bypass -file ChocoInstall.ps1 -package greenshot -uninstall
 .COPYRIGHT
@@ -28,7 +31,9 @@ PARAM(
         [ValidateNotNullOrEmpty()]
         [string]$package,
     [Parameter(Mandatory=$false)]
-        [switch]$uninstall
+        [switch]$uninstall,
+    [Parameter(Mandatory=$false)]
+        [switch]$upgrade
 )
 
 #Path to Chocolatey
@@ -52,7 +57,17 @@ if($uninstall) {
         Invoke-Expression “cmd.exe /c $ChocoInstall uninstall $package -y” -ErrorAction Stop
     }
     catch {
-        Throw “Failed to install $package”
+        Throw “Failed to uninstall $package”
+    }
+
+} elseif($upgrade) {
+
+    #Upgrade requested package to latest approved version
+    try {
+        Invoke-Expression “cmd.exe /c $ChocoInstall upgrade $package -y” -ErrorAction Stop
+    }
+    catch {
+        Throw “Failed to upgrade $package”
     }
 
 } else {
@@ -64,4 +79,5 @@ if($uninstall) {
     catch {
         Throw “Failed to install $package”
     }
+
 }
