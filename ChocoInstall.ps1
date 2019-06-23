@@ -39,7 +39,7 @@ PARAM(
 #Path to Chocolatey
 $ChocoInstall = Join-Path ([System.Environment]::GetFolderPath("CommonApplicationData")) "Chocolatey\bin\choco.exe"
 
-#Verify Chcolatey is installed, otherwise try and install from official repository.
+#Verify Chocolatey is installed, otherwise try and install from official repository.
 if(!(Test-Path $ChocoInstall)) {
      try {
          Invoke-Expression ((New-Object net.webclient).DownloadString('https://chocolatey.org/install.ps1')) -ErrorAction Stop
