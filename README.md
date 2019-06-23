@@ -4,6 +4,10 @@ This script was designed to make using the chocolatey package repository easy to
 Utilizing the power of Win32app deployment.
 Package this script with the Intune Content Preperation tool, and it will be the only package you will need in order to install thousands of applications!
 
+Get a list of available package names from the official repository here: https://chocolatey.org/packages
+
+You can add your own private repository by modifying the ChocoInstall.ps1 script.
+
 # Useage
 
 Once packaged as an .intunewin file
